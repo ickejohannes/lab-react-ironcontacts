@@ -4,13 +4,11 @@ import { useState } from 'react';
 
 const firstFive = allContacts.slice(0, 5);
 
-function test() {
-  return "hi!"
-}
-
 function App() {
   const [contacts, setContacts] = useState(firstFive);
-
+  const difference = allContacts.filter(x => !contacts.includes(x));
+  const randomContact = difference[Math.floor(Math.random() * difference.length)]
+    
   return (
     <div className="App">
       <table>
@@ -26,19 +24,18 @@ function App() {
         <tbody>
           {contacts.map(contact => {
             return (
-              <tr>
+              <tr key={contact.id}>
                 <td><img src={contact.pictureUrl} alt={contact.name} className="actorPic"/></td>
                 <td>{contact.name}</td> 
                 <td>{contact.popularity}</td>
                 {contact.wonOscar && <td>🏆</td>}
                 {contact.wonEmmy && <td>🏆</td>}
-
-                
               </tr>
             )
           })}
         </tbody>
       </table>
+      <button type="button" onClick={() => setContacts([...contacts, randomContact])}>Add Random Contact</button>
     </div>
   );
 }
