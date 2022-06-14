@@ -8,6 +8,9 @@ function App() {
   const [contacts, setContacts] = useState(firstFive);
   const difference = allContacts.filter(x => !contacts.includes(x));
   const randomContact = difference[Math.floor(Math.random() * difference.length)]
+  // let sortedContacts = contacts.sort((a, b) => a.name.localeCompare(b.name))
+  // let sortedByPopularityContacts = contacts.sort((a, b) => a.popularity - b.popularity)
+  //console.log(sortedByPopularityContacts)
     
   return (
     <div className="App">
@@ -36,6 +39,9 @@ function App() {
         </tbody>
       </table>
       <button type="button" onClick={() => setContacts([...contacts, randomContact])}>Add Random Contact</button>
+      <button type="button" onClick={() => setContacts([...contacts.sort((a, b) => a.name.localeCompare(b.name))])}>Sort by name</button>
+      <button type="button" onClick={() => setContacts([...contacts.sort((a, b) => a.popularity - b.popularity)])}>Sort by popularity</button>
+
     </div>
   );
 }
