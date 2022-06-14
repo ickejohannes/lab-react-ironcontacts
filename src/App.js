@@ -8,9 +8,14 @@ function App() {
   const [contacts, setContacts] = useState(firstFive);
   const difference = allContacts.filter(x => !contacts.includes(x));
   const randomContact = difference[Math.floor(Math.random() * difference.length)]
-  // let sortedContacts = contacts.sort((a, b) => a.name.localeCompare(b.name))
-  // let sortedByPopularityContacts = contacts.sort((a, b) => a.popularity - b.popularity)
-  //console.log(sortedByPopularityContacts)
+  
+  const deleteContact = contactId => {
+    const filteredContacts = contacts.filter(contact => {
+      return contact.id !== contactId;
+    });
+  
+    setContacts(filteredContacts);
+  }
     
   return (
     <div className="App">
@@ -31,8 +36,9 @@ function App() {
                 <td><img src={contact.pictureUrl} alt={contact.name} className="actorPic"/></td>
                 <td>{contact.name}</td> 
                 <td>{contact.popularity}</td>
-                {contact.wonOscar && <td>🏆</td>}
-                {contact.wonEmmy && <td>🏆</td>}
+                {contact.wonOscar ? <td>🏆</td> : <td></td>}
+                {contact.wonEmmy ? <td>🏆</td> : <td></td>}
+                <td><button type="button" onClick={() => deleteContact(contact.id)}>Delete</button></td>
               </tr>
             )
           })}
